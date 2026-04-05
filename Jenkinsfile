@@ -3,16 +3,10 @@ pipeline {
 
     stages {
 
-        stage('Clone Repo') {
-            steps {
-                git 'https://github.com/BK-KRISH/chess-devops.git'
-            }
-        }
-
         stage('Build Docker Image') {
             steps {
                 dir('app') {
-                    sh 'docker build -t bk-chess-app .'
+                    sh 'docker build -t chess-app .'
                 }
             }
         }
@@ -24,9 +18,9 @@ pipeline {
             }
         }
 
-        stage('Run New Container') {
+        stage('Run Container') {
             steps {
-                sh 'docker run -d -p 80:80 --name chess-container bk-chess-app'
+                sh 'docker run -d -p 80:80 --name chess-container chess-app'
             }
         }
     }
